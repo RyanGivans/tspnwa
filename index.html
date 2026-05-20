@@ -6,464 +6,576 @@
   <title>TSPNWA Network | The Northwest Arkansas Cultural Guide</title>
   <style>
     :root {
-      --orange: #f36f32;
-      --orange-2: #ff8a4d;
-      --charcoal: #171d21;
-      --ink: #232b30;
-      --slate: #65737b;
-      --cream: #f2eddf;
-      --paper: #fbf7eb;
-      --line: rgba(31, 38, 43, 0.16);
+      --orange: #ef6b2e;
+      --orange-hot: #ff8b4a;
+      --black: #050505;
+      --black-2: #101010;
+      --charcoal: #171717;
+      --gray: #9b9b9b;
+      --light: #f6f1e8;
       --white: #ffffff;
-      --shadow: 0 28px 80px rgba(15, 20, 23, 0.20);
+      --line: rgba(255,255,255,.13);
+      --glow: 0 0 60px rgba(239,107,46,.35);
+      --max: 1180px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
     body {
-      font-family: Inter, Arial, Helvetica, sans-serif;
-      background: var(--cream);
-      color: var(--charcoal);
-      line-height: 1.5;
+      font-family: Impact, Haettenschweiler, "Arial Narrow Bold", Arial, sans-serif;
+      background: var(--black);
+      color: var(--white);
       overflow-x: hidden;
     }
-
+    p, a, li, span, button { font-family: Arial, Helvetica, sans-serif; }
     a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
+    img { display: block; max-width: 100%; }
 
-    .page {
-      overflow: hidden;
-      background-image:
-        linear-gradient(var(--line) 1px, transparent 1px),
-        linear-gradient(90deg, var(--line) 1px, transparent 1px);
-      background-size: 72px 72px;
-      position: relative;
-    }
-
-    .noise {
+    .grain {
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: 100;
-      opacity: .06;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 1000;
+      opacity: .08;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
     }
 
-    .ticker {
-      background: var(--charcoal);
-      color: var(--white);
-      white-space: nowrap;
-      overflow: hidden;
-      border-bottom: 4px solid var(--orange);
+    .topbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 20;
+      background: rgba(0,0,0,.68);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,.1);
     }
-
-    .ticker-track {
-      display: inline-flex;
-      gap: 36px;
-      padding: 12px 0;
-      font-size: .78rem;
-      font-weight: 900;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      animation: marquee 28s linear infinite;
-    }
-
-    .ticker-track span { color: rgba(255,255,255,.82); }
-    .ticker-track b { color: var(--orange-2); }
-
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-
     .nav {
-      width: min(1200px, calc(100% - 40px));
+      width: min(var(--max), calc(100% - 36px));
       margin: 0 auto;
-      padding: 24px 0;
+      height: 76px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      position: relative;
-      z-index: 5;
+      justify-content: space-between;
     }
-
-    .brand { display: flex; align-items: center; gap: 12px; font-weight: 950; letter-spacing: -.05em; font-size: 1.1rem; }
-
-    .mark {
-      width: 48px; height: 54px; border-radius: 16px;
-      background: linear-gradient(135deg, var(--orange), #e55320);
-      color: var(--white); display: grid; place-items: center;
-      font-weight: 950; box-shadow: 0 18px 35px rgba(243, 111, 50, .34);
-      border: 3px solid rgba(255,255,255,.8);
-      animation: float 4.8s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%,100% { transform: translateY(0) rotate(-1deg); }
-      50% { transform: translateY(-7px) rotate(2deg); }
-    }
-
-    .nav-links { display: flex; gap: 26px; font-size: .78rem; font-weight: 900; text-transform: uppercase; letter-spacing: .1em; color: var(--slate); }
-    .nav-links a { position: relative; }
-    .nav-links a::after { content:""; position:absolute; left:0; bottom:-8px; width:0; height:3px; background:var(--orange); transition:.25s; }
-    .nav-links a:hover::after { width:100%; }
+    .brand { display: flex; align-items: center; gap: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; font-size: .82rem; }
+    .brand img { width: 48px; filter: drop-shadow(0 0 18px rgba(239,107,46,.45)); }
+    .nav-links { display: flex; gap: 28px; color: rgba(255,255,255,.78); font-size: .76rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+    .nav-links a { position: relative; padding: 8px 0; }
+    .nav-links a::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 2px; background: var(--orange); transition: .25s ease; }
+    .nav-links a:hover::after { width: 100%; }
 
     .hero {
-      width: min(1200px, calc(100% - 40px));
-      margin: 0 auto;
-      min-height: 820px;
-      display: grid;
-      grid-template-columns: 1.02fr .98fr;
-      gap: 54px;
-      align-items: center;
-      padding: 62px 0 110px;
+      min-height: 100vh;
       position: relative;
+      display: grid;
+      align-items: center;
+      padding: 130px 0 80px;
+      overflow: hidden;
+      isolation: isolate;
     }
-
     .hero::before {
-      content:"";
-      position:absolute;
-      width: 560px; height: 560px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(243,111,50,.20), transparent 68%);
-      left:-230px; top:80px;
-      animation: pulse 6s ease-in-out infinite;
-      z-index:0;
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.95) 0%, rgba(0,0,0,.70) 42%, rgba(0,0,0,.22) 100%),
+        linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,.05) 32%, rgba(0,0,0,.35) 100%),
+        url("https://static.wixstatic.com/media/32989d_be1bd8ebcf70408698d158dbc6d52ab2~mv2.jpg/v1/fill/w_1600,h_900,al_c,q_85,enc_avif,quality_auto/32989d_be1bd8ebcf70408698d158dbc6d52ab2~mv2.jpg") center/cover;
+      z-index: -3;
+      transform: scale(1.04);
+      animation: slowZoom 18s ease-in-out infinite alternate;
     }
-
-    @keyframes pulse { 0%,100%{ transform:scale(1); opacity:.75;} 50%{ transform:scale(1.12); opacity:1;} }
-
-    .hero > * { position: relative; z-index: 2; }
-
-    .kicker { display:inline-flex; gap:10px; align-items:center; color:var(--orange); font-weight:950; text-transform:uppercase; letter-spacing:.13em; font-size:.78rem; margin-bottom:22px; }
-    .kicker::before { content:""; width:42px; height:3px; background:var(--orange); display:block; }
-
-    h1 {
-      font-size: clamp(3.4rem, 8.5vw, 7.9rem);
-      line-height: .84;
-      letter-spacing: -.09em;
-      max-width: 830px;
-      margin-bottom: 28px;
-      text-transform: uppercase;
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(to bottom, transparent, black 18%, black 82%, transparent);
+      z-index: -2;
     }
+    @keyframes slowZoom { from { transform: scale(1.04); } to { transform: scale(1.12); } }
 
-    .hero p { font-size: clamp(1.08rem, 1.5vw, 1.35rem); color:#3f4a50; max-width:660px; margin-bottom:34px; }
-    .hero-actions { display:flex; flex-wrap:wrap; gap:14px; }
-
-    .btn {
-      padding: 16px 23px;
-      border-radius: 999px;
-      font-weight: 950;
-      text-transform: uppercase;
-      letter-spacing: .07em;
+    .hero-inner {
+      width: min(var(--max), calc(100% - 36px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 58px;
+      align-items: center;
+    }
+    .eyebrow {
+      color: var(--orange-hot);
       font-size: .78rem;
+      font-weight: 900;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .eyebrow::before { content: ""; width: 42px; height: 3px; background: var(--orange); box-shadow: var(--glow); }
+    h1 {
+      font-size: clamp(4.3rem, 10vw, 10rem);
+      line-height: .78;
+      text-transform: uppercase;
+      letter-spacing: -.075em;
+      max-width: 890px;
+      text-shadow: 0 20px 70px rgba(0,0,0,.55);
+    }
+    .hero h1 span { color: var(--orange); text-shadow: var(--glow); }
+    .lead {
+      max-width: 650px;
+      margin-top: 28px;
+      color: rgba(255,255,255,.78);
+      font-size: clamp(1.05rem, 1.4vw, 1.32rem);
+      line-height: 1.55;
+      font-weight: 500;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
+    .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border: 2px solid var(--charcoal);
+      min-height: 52px;
+      padding: 0 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.22);
+      font-size: .78rem;
+      font-weight: 900;
+      letter-spacing: .13em;
+      text-transform: uppercase;
       transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
     }
-    .btn:hover { transform: translateY(-4px); box-shadow: 0 18px 35px rgba(0,0,0,.16); }
-    .btn.primary { background:var(--charcoal); color:var(--white); }
-    .btn.secondary { background:rgba(255,255,255,.3); color:var(--charcoal); }
+    .btn:hover { transform: translateY(-4px); box-shadow: 0 20px 55px rgba(0,0,0,.35); }
+    .btn.primary { background: var(--orange); color: #fff; border-color: var(--orange); box-shadow: 0 0 44px rgba(239,107,46,.24); }
+    .btn.ghost { background: rgba(255,255,255,.06); color: #fff; }
 
-    .media-stack { position: relative; min-height: 620px; }
-    .photo-card {
-      position: absolute;
-      background: var(--paper);
-      border: 2px solid var(--charcoal);
-      box-shadow: var(--shadow);
-      padding: 13px;
-      overflow: hidden;
+    .hero-panel {
+      position: relative;
+      min-height: 620px;
     }
-    .photo-card img { width:100%; height:100%; object-fit:cover; filter:saturate(.96) contrast(1.04); }
-    .photo-card.main { width: 76%; height: 470px; right: 0; top: 36px; transform: rotate(1.2deg); }
-    .photo-card.side { width: 46%; height: 260px; left: 0; top: 0; transform: rotate(-5deg); z-index: 2; }
-    .photo-card.bottom { width: 52%; height: 250px; left: 34px; bottom: 18px; transform: rotate(4deg); z-index: 3; }
-    .photo-card::after { content:""; position:absolute; inset:23px; border:1px solid rgba(255,255,255,.6); pointer-events:none; }
-
-    .floating-badge {
+    .creator-card {
       position: absolute;
-      right: 30px;
-      bottom: 44px;
-      z-index: 5;
+      right: 0;
+      top: 20px;
+      width: 74%;
+      height: 570px;
+      border: 1px solid rgba(255,255,255,.22);
+      overflow: hidden;
+      box-shadow: 0 40px 110px rgba(0,0,0,.55);
+      transform: rotate(2deg);
+      background: #111;
+    }
+    .creator-card img { width: 100%; height: 100%; object-fit: cover; }
+    .creator-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(0,0,0,.76), transparent 48%);
+    }
+    .mini-card {
+      position: absolute;
+      left: 0;
+      bottom: 58px;
+      width: 54%;
+      background: rgba(12,12,12,.88);
+      border: 1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(18px);
+      padding: 24px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.5);
+    }
+    .mini-card h3 { font-size: 2.2rem; line-height: .9; text-transform: uppercase; letter-spacing: -.05em; }
+    .mini-card p { margin-top: 12px; color: rgba(255,255,255,.72); line-height: 1.45; }
+    .play-ring {
+      position: absolute;
+      right: 36px;
+      bottom: 40px;
+      width: 98px;
+      height: 98px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--orange);
+      box-shadow: var(--glow);
+      z-index: 4;
+      animation: breathe 3.8s ease-in-out infinite;
+    }
+    .play-ring::before { content: "▶"; margin-left: 6px; font-size: 2rem; }
+    @keyframes breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+
+    .ticker {
+      overflow: hidden;
       background: var(--orange);
       color: #fff;
-      padding: 20px 22px;
-      border-radius: 28px;
-      border: 4px solid rgba(255,255,255,.86);
-      box-shadow: 0 24px 55px rgba(243,111,50,.35);
-      font-weight: 950;
+      transform: rotate(-1.25deg) scale(1.02);
+      margin-top: -28px;
+      position: relative;
+      z-index: 5;
+      box-shadow: 0 24px 60px rgba(0,0,0,.35);
+    }
+    .ticker-track {
+      display: flex;
+      gap: 30px;
+      white-space: nowrap;
+      padding: 16px 0;
+      animation: marquee 26s linear infinite;
+      font-size: .84rem;
+      font-weight: 900;
+      letter-spacing: .14em;
       text-transform: uppercase;
-      letter-spacing: -.04em;
-      font-size: 1.45rem;
-      animation: badge 5.5s ease-in-out infinite;
     }
-    @keyframes badge { 0%,100%{ transform:rotate(-4deg) translateY(0);} 50%{ transform:rotate(3deg) translateY(-10px);} }
+    @keyframes marquee { to { transform: translateX(-50%); } }
 
-    section { padding: 105px 0; position: relative; }
-    .container { width:min(1200px, calc(100% - 40px)); margin:0 auto; }
-    .section-head { max-width: 880px; margin-bottom: 48px; }
-    .eyebrow { color:var(--orange); font-size:.78rem; font-weight:950; letter-spacing:.13em; text-transform:uppercase; margin-bottom:12px; }
-    .section-head h2 { font-size:clamp(2.4rem,5vw,5rem); line-height:.92; letter-spacing:-.08em; text-transform:uppercase; margin-bottom:18px; }
-    .section-head p { font-size:1.13rem; color:#4d575d; max-width:760px; }
-
-    .mission-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:22px; }
-    .panel {
-      background: rgba(251,247,235,.92);
-      border: 1px solid rgba(31,38,43,.22);
-      padding: 31px;
-      min-height: 230px;
-      transition: transform .24s ease, box-shadow .24s ease;
+    section { padding: 110px 0; position: relative; }
+    .container { width: min(var(--max), calc(100% - 36px)); margin: 0 auto; }
+    .section-head { display: grid; grid-template-columns: .9fr 1.1fr; gap: 48px; align-items: end; margin-bottom: 54px; }
+    .section-head h2 {
+      font-size: clamp(3rem, 6.5vw, 6.9rem);
+      line-height: .78;
+      letter-spacing: -.075em;
+      text-transform: uppercase;
     }
-    .panel:hover { transform: translateY(-7px); box-shadow: 0 24px 60px rgba(0,0,0,.12); }
-    .panel h3 { font-size:1.75rem; letter-spacing:-.06em; text-transform:uppercase; margin-bottom:12px; }
-    .panel p { color:#4a545a; }
+    .section-head p { color: rgba(255,255,255,.68); font-size: 1.06rem; line-height: 1.65; max-width: 600px; }
 
-    .photo-strip {
-      display:grid;
-      grid-template-columns: 1.25fr .85fr .9fr;
-      gap: 18px;
-      margin-top: 34px;
+    .light { background: var(--light); color: #111; }
+    .light .section-head p, .light p { color: rgba(0,0,0,.67); }
+    .light .eyebrow { color: var(--orange); }
+
+    .lane-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 13px; }
+    .lane {
+      min-height: 470px;
+      padding: 28px 22px;
+      background: #111;
+      border: 1px solid rgba(255,255,255,.12);
+      position: relative;
+      overflow: hidden;
+      transition: .3s ease;
     }
-    .strip-img { height: 330px; border: 2px solid var(--charcoal); overflow:hidden; box-shadow: 12px 12px 0 rgba(31,38,43,.10); }
-    .strip-img:nth-child(2) { margin-top: 42px; }
-    .strip-img img { width:100%; height:100%; object-fit:cover; transition: transform 1.2s ease; }
-    .strip-img:hover img { transform: scale(1.08); }
+    .lane::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(0,0,0,.92), rgba(0,0,0,.15)), var(--bg) center/cover;
+      opacity: .52;
+      transition: .35s ease;
+    }
+    .lane:hover { transform: translateY(-12px); border-color: rgba(239,107,46,.75); box-shadow: var(--glow); }
+    .lane:hover::before { transform: scale(1.08); opacity: .78; }
+    .lane-content { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; }
+    .lane h3 { font-size: 2.45rem; line-height: .86; text-transform: uppercase; letter-spacing: -.055em; color: #fff; }
+    .lane p { margin-top: 14px; color: rgba(255,255,255,.76); font-size: .93rem; line-height: 1.45; }
+    .lane b { display: block; color: var(--orange-hot); margin-top: 16px; font-size: .72rem; letter-spacing: .13em; text-transform: uppercase; }
 
-    .lanes { display:grid; grid-template-columns: repeat(5, 1fr); border:2px solid var(--charcoal); background:var(--paper); box-shadow:14px 14px 0 rgba(31,38,43,.08); }
-    .lane { padding:28px 20px; border-right:1px solid rgba(31,38,43,.25); min-height:390px; position:relative; overflow:hidden; transition:.25s; }
-    .lane:hover { background:#fffaf0; transform: translateY(-6px); z-index:2; box-shadow:0 24px 70px rgba(0,0,0,.12); }
-    .lane:last-child { border-right:none; }
-    .lane:first-child { border-top:8px solid var(--orange); }
-    .lane h3 { font-size:1.52rem; text-transform:uppercase; letter-spacing:-.06em; margin-bottom:18px; }
-    .lane .label { font-weight:950; margin-top:18px; color:var(--charcoal); }
-    .lane p { color:#414b50; font-size:.95rem; }
-    .lane-icon { font-size:2rem; margin-bottom:16px; }
+    .story-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .story-card {
+      min-height: 310px;
+      padding: 30px;
+      border: 1px solid rgba(255,255,255,.13);
+      background: linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.025));
+      position: relative;
+      overflow: hidden;
+      transition: .3s ease;
+    }
+    .story-card:hover { transform: translateY(-9px); background: linear-gradient(145deg, rgba(239,107,46,.18), rgba(255,255,255,.035)); }
+    .story-card span { color: var(--orange); font-size: .8rem; font-weight: 900; letter-spacing: .15em; text-transform: uppercase; }
+    .story-card h3 { margin-top: 70px; font-size: 2.45rem; line-height: .88; text-transform: uppercase; letter-spacing: -.055em; }
+    .story-card p { margin-top: 18px; color: rgba(255,255,255,.67); line-height: 1.55; }
 
-    .dark { background:var(--charcoal); color:var(--white); overflow:hidden; }
-    .dark::before { content:""; position:absolute; inset:0; background: radial-gradient(circle at 20% 20%, rgba(243,111,50,.18), transparent 32%), radial-gradient(circle at 80% 70%, rgba(255,255,255,.08), transparent 35%); }
-    .dark .container { position:relative; z-index:1; }
-    .dark .section-head p, .dark .panel p { color:rgba(255,255,255,.72); }
-    .dark .eyebrow { color:var(--orange-2); }
+    .production {
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.9), rgba(0,0,0,.55)),
+        url("https://static.wixstatic.com/media/32989d_c3e7bce3044149d3abc7d4564c11239b~mv2.jpg/v1/fill/w_900,h_1350,al_c,q_85,enc_avif,quality_auto/32989d_c3e7bce3044149d3abc7d4564c11239b~mv2.jpg") right center/contain no-repeat,
+        #0b0b0b;
+    }
+    .production .section-head { grid-template-columns: 1fr .7fr; }
 
-    .flow { display:grid; grid-template-columns: repeat(4,1fr); gap:18px; }
-    .flow-card { background:var(--paper); color:var(--charcoal); padding:26px; border:2px solid var(--charcoal); position:relative; min-height:210px; transition:.25s; }
-    .flow-card:hover { transform: translateY(-8px) rotate(-.5deg); }
-    .flow-card::after { content:"→"; position:absolute; right:-20px; top:50%; transform:translateY(-50%); font-size:2rem; color:var(--orange); font-weight:950; z-index:2; }
-    .flow-card:last-child::after { display:none; }
-    .flow-card span { color:var(--orange); font-weight:950; text-transform:uppercase; font-size:.76rem; letter-spacing:.12em; }
-    .flow-card h3 { margin-top:10px; font-size:1.3rem; text-transform:uppercase; letter-spacing:-.04em; }
-    .flow-card p { margin-top:8px; color:#48545a; }
+    .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 40px; }
+    .flow-card {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.13);
+      padding: 24px;
+      min-height: 215px;
+      transition: .3s ease;
+    }
+    .flow-card:hover { transform: translateY(-8px); border-color: rgba(239,107,46,.7); }
+    .flow-card span { color: var(--orange-hot); font-size: .76rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+    .flow-card h3 { margin-top: 42px; font-size: 2rem; line-height: .88; text-transform: uppercase; letter-spacing: -.05em; }
+    .flow-card p { margin-top: 12px; color: rgba(255,255,255,.65); line-height: 1.5; }
 
-    .funnel { max-width: 960px; margin:0 auto; display:grid; gap:18px; }
-    .funnel-main { background:var(--charcoal); color:var(--white); padding:28px; text-align:center; border-radius:14px; font-weight:950; text-transform:uppercase; letter-spacing:-.03em; box-shadow:var(--shadow); animation: glow 4s ease-in-out infinite; }
-    @keyframes glow { 0%,100%{ box-shadow:0 24px 65px rgba(0,0,0,.18);} 50%{ box-shadow:0 24px 85px rgba(243,111,50,.34);} }
-    .funnel-branches { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-    .branch { background:#6f7b82; color:var(--white); padding:23px; text-align:center; border-radius:14px; font-weight:950; }
-    .outputs { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
-    .output { background:var(--orange); color:var(--white); padding:18px; text-align:center; border-radius:12px; font-weight:950; min-height:82px; display:grid; place-items:center; transition:.25s; }
-    .output:hover { transform: translateY(-8px) rotate(1deg); }
+    .funnel-wrap {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 44px;
+      align-items: center;
+    }
+    .funnel-visual {
+      background: #0d0d0d;
+      border: 1px solid rgba(255,255,255,.13);
+      padding: 24px;
+      box-shadow: 0 40px 100px rgba(0,0,0,.35);
+    }
+    .episode {
+      background: var(--orange);
+      padding: 28px;
+      text-align: center;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-size: .9rem;
+      box-shadow: var(--glow);
+    }
+    .branches { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+    .branch, .output { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.13); padding: 20px; text-align: center; font-weight: 900; text-transform: uppercase; letter-spacing: .09em; font-size: .74rem; color: rgba(255,255,255,.84); }
+    .outputs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 14px; }
+    .output { background: rgba(239,107,46,.16); }
 
-    .rings { display:grid; grid-template-columns: repeat(3,1fr); gap:22px; }
-    .ring { border:2px solid rgba(31,38,43,.35); background:rgba(251,247,235,.92); padding:30px; transition:.25s; }
-    .ring:hover { transform: scale(1.03); box-shadow:0 24px 60px rgba(0,0,0,.12); }
-    .ring h3 { color:var(--orange); text-transform:uppercase; letter-spacing:-.04em; margin-bottom:10px; }
+    .partner {
+      background:
+        linear-gradient(0deg, rgba(0,0,0,.82), rgba(0,0,0,.35)),
+        url("https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1800&q=80") center/cover fixed;
+    }
+    .partner-box {
+      max-width: 650px;
+      margin-left: auto;
+      background: rgba(0,0,0,.78);
+      border: 1px solid rgba(255,255,255,.18);
+      padding: 42px;
+      backdrop-filter: blur(16px);
+    }
+    .partner-box h2 { font-size: clamp(3rem, 6vw, 6rem); line-height: .8; letter-spacing: -.075em; text-transform: uppercase; }
+    .partner-box p { margin-top: 22px; color: rgba(255,255,255,.72); line-height: 1.65; }
+    .percent { margin-top: 28px; padding: 22px; border-left: 5px solid var(--orange); background: rgba(255,255,255,.06); font-family: Arial, Helvetica, sans-serif; font-weight: 900; }
 
-    .split { display:grid; grid-template-columns:1fr 1fr; gap:34px; align-items:center; }
-    .feature-photo { height:520px; border:2px solid var(--charcoal); box-shadow:18px 18px 0 rgba(31,38,43,.1); overflow:hidden; transform:rotate(-1.5deg); }
-    .feature-photo img { width:100%; height:100%; object-fit:cover; }
+    .distribution-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .dist-card {
+      min-height: 280px;
+      padding: 30px;
+      background: #fff;
+      color: #111;
+      border: 1px solid rgba(0,0,0,.12);
+      box-shadow: 0 24px 80px rgba(0,0,0,.14);
+      transition: .3s ease;
+    }
+    .dist-card:hover { transform: rotate(-1deg) translateY(-8px); }
+    .dist-card h3 { color: var(--orange); font-size: 2.2rem; line-height: .88; text-transform: uppercase; letter-spacing: -.06em; }
+    .dist-card p { margin-top: 18px; color: rgba(0,0,0,.66); line-height: 1.55; }
 
-    .cta { padding:125px 0; text-align:center; background:var(--paper); border-top:2px solid rgba(31,38,43,.2); position:relative; overflow:hidden; }
-    .cta::before { content:"TSPNWA"; position:absolute; left:50%; top:52%; transform:translate(-50%,-50%); font-size:17vw; font-weight:950; letter-spacing:-.1em; color:rgba(31,38,43,.045); pointer-events:none; }
-    .cta .container { position:relative; z-index:1; }
-    .cta h2 { font-size:clamp(2.8rem,7vw,6.7rem); line-height:.88; letter-spacing:-.09em; text-transform:uppercase; max-width:980px; margin:0 auto 26px; }
-    .cta p { max-width:760px; margin:0 auto 34px; font-size:1.18rem; color:#4b555a; }
+    .cta {
+      min-height: 80vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background:
+        linear-gradient(0deg, rgba(0,0,0,.88), rgba(0,0,0,.42)),
+        url("https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1800&q=80") center/cover;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta::before { content: "TSPNWA"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18vw; letter-spacing: -.09em; color: rgba(255,255,255,.055); }
+    .cta .container { position: relative; z-index: 2; }
+    .cta h2 { font-size: clamp(4rem, 9vw, 9rem); line-height: .78; letter-spacing: -.08em; text-transform: uppercase; max-width: 1000px; margin: 0 auto; }
+    .cta p { max-width: 730px; margin: 30px auto 38px; color: rgba(255,255,255,.76); line-height: 1.65; font-size: 1.1rem; }
 
-    footer { padding:28px 0; background:var(--charcoal); color:rgba(255,255,255,.7); font-size:.78rem; text-transform:uppercase; letter-spacing:.12em; font-weight:900; }
-    .footer-inner { width:min(1200px, calc(100% - 40px)); margin:0 auto; display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+    footer { padding: 30px 0; background: #050505; border-top: 1px solid rgba(255,255,255,.1); }
+    .footer-inner { width: min(var(--max), calc(100% - 36px)); margin: 0 auto; display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; color: rgba(255,255,255,.55); font-size: .75rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
 
-    .reveal { opacity:0; transform: translateY(22px); animation: reveal .75s ease forwards; }
-    .delay-1 { animation-delay:.12s; } .delay-2 { animation-delay:.24s; } .delay-3 { animation-delay:.36s; }
-    @keyframes reveal { to { opacity:1; transform:translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(26px); animation: reveal .75s ease forwards; }
+    .delay-1 { animation-delay: .16s; }
+    .delay-2 { animation-delay: .3s; }
+    .delay-3 { animation-delay: .44s; }
+    @keyframes reveal { to { opacity: 1; transform: translateY(0); } }
 
     @media (max-width: 980px) {
-      .nav-links { display:none; }
-      .hero, .split { grid-template-columns:1fr; }
-      .media-stack { min-height:560px; }
-      .mission-grid, .rings, .flow, .outputs, .photo-strip { grid-template-columns:1fr 1fr; }
-      .lanes { grid-template-columns:1fr; }
-      .lane { border-right:none; border-bottom:1px solid rgba(31,38,43,.25); min-height:auto; }
-      .lane:last-child { border-bottom:none; }
-      .flow-card::after { display:none; }
+      .nav-links { display: none; }
+      .hero-inner, .section-head, .funnel-wrap, .production .section-head { grid-template-columns: 1fr; }
+      .hero-panel { min-height: 560px; }
+      .lane-grid { grid-template-columns: 1fr 1fr; }
+      .story-grid, .flow, .distribution-grid { grid-template-columns: 1fr 1fr; }
+      .production { background: #0b0b0b; }
     }
-
     @media (max-width: 640px) {
-      section { padding:76px 0; }
-      .hero { padding-top:38px; min-height:auto; }
-      .mission-grid, .rings, .flow, .outputs, .funnel-branches, .photo-strip { grid-template-columns:1fr; }
-      .media-stack { min-height:500px; }
-      .photo-card.main { width:86%; height:360px; }
-      .photo-card.side { width:54%; height:200px; }
-      .photo-card.bottom { width:62%; height:190px; left:10px; }
-      .floating-badge { right:8px; bottom:34px; font-size:1.1rem; }
-      .strip-img, .feature-photo { height:310px; transform:none; }
+      .hero { padding-top: 115px; }
+      .hero-inner { gap: 34px; }
+      .hero-panel { min-height: 480px; }
+      .creator-card { width: 86%; height: 430px; }
+      .mini-card { width: 70%; bottom: 18px; }
+      .mini-card h3 { font-size: 1.7rem; }
+      .play-ring { width: 74px; height: 74px; }
+      section { padding: 80px 0; }
+      .lane-grid, .story-grid, .flow, .distribution-grid, .branches, .outputs { grid-template-columns: 1fr; }
+      .lane { min-height: 380px; }
     }
   </style>
 </head>
 <body>
-  <div class="noise"></div>
-  <div class="page">
-    <div class="ticker">
-      <div class="ticker-track">
-        <span><b>Eat NWA</b> • Music NWA • Explore NWA • Build NWA • Stay NWA • The Northwest Arkansas Cultural Guide •</span>
-        <span><b>Eat NWA</b> • Music NWA • Explore NWA • Build NWA • Stay NWA • The Northwest Arkansas Cultural Guide •</span>
-      </div>
-    </div>
+  <div class="grain"></div>
 
+  <header class="topbar">
     <nav class="nav">
-      <a href="#top" class="brand"><span class="mark">TSP</span><span>TSPNWA Network</span></a>
+      <a class="brand" href="#top">
+        <img src="https://static.wixstatic.com/media/32989d_675e51e7072a44618744f45d8c238b78~mv2.png/v1/fill/w_160,h_178,al_c,q_85,enc_avif,quality_auto/Hex_Orange.png" alt="TSP logo" />
+        <span>TSPNWA Network</span>
+      </a>
       <div class="nav-links">
-        <a href="#mission">Mission</a>
+        <a href="#vision">Vision</a>
         <a href="#lanes">Lanes</a>
-        <a href="#funnel">Content</a>
+        <a href="#production">Production</a>
         <a href="#distribution">Distribution</a>
         <a href="#join">Join</a>
       </div>
     </nav>
+  </header>
 
-    <header class="hero" id="top">
-      <div class="reveal">
-        <div class="kicker">The Northwest Arkansas Cultural Guide</div>
-        <h1>Reintroducing NWA to locals and newcomers.</h1>
-        <p>A living, breathing tour guide built to showcase the best restaurants, music, businesses, entrepreneurs, hotels, and things to do across a rapidly growing region.</p>
-        <div class="hero-actions">
-          <a href="#join" class="btn primary">Join the Network</a>
-          <a href="#lanes" class="btn secondary">Explore the Lanes</a>
-        </div>
-      </div>
-
-      <div class="media-stack reveal delay-1">
-        <div class="photo-card side"><img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=80" alt="Live music crowd and stage lights" /></div>
-        <div class="photo-card main"><img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=80" alt="Creative production studio workspace" /></div>
-        <div class="photo-card bottom"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=900&q=80" alt="Restaurant table and hospitality scene" /></div>
-        <div class="floating-badge">TSP<br />Network</div>
-      </div>
-    </header>
-
-    <section id="mission">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="eyebrow">Mission + Vision</div>
-          <h2>A network built for cultural discovery.</h2>
-          <p>TSPNWA is designed for two audiences: longtime locals who want to be surprised by their own backyard, and newcomers who want a better way to understand the region they now call home.</p>
+  <main>
+    <section class="hero" id="top">
+      <div class="hero-inner">
+        <div class="reveal">
+          <div class="eyebrow">Produced by Travis Smith Productions</div>
+          <h1>The Northwest Arkansas <span>Cultural Guide</span></h1>
+          <p class="lead">A living, breathing tour guide built to showcase the best restaurants, music, businesses, entrepreneurs, hotels, and things to do across a rapidly growing region.</p>
+          <div class="hero-actions">
+            <a href="#join" class="btn primary">Step Into The Studio</a>
+            <a href="#lanes" class="btn ghost">Explore The Network</a>
+          </div>
         </div>
 
-        <div class="mission-grid">
-          <article class="panel reveal"><h3>Surprise Locals</h3><p>Show longtime residents the restaurants, venues, businesses, hidden spots, and stories they may have missed.</p></article>
-          <article class="panel reveal delay-1"><h3>Excite Newcomers</h3><p>Give new residents and visitors a polished guide to the people and places shaping Northwest Arkansas.</p></article>
-          <article class="panel reveal delay-2"><h3>Feed the Region</h3><p>Create a living ecosystem of episodes, clips, directories, calendars, maps, booking links, and local collaborations.</p></article>
-        </div>
-
-        <div class="photo-strip reveal delay-3">
-          <div class="strip-img"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1100&q=80" alt="Restaurant dining room" /></div>
-          <div class="strip-img"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80" alt="Outdoor exploration trail" /></div>
-          <div class="strip-img"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80" alt="Entrepreneurs collaborating" /></div>
+        <div class="hero-panel reveal delay-1">
+          <div class="creator-card">
+            <img src="https://static.wixstatic.com/media/32989d_c3e7bce3044149d3abc7d4564c11239b~mv2.jpg/v1/fill/w_900,h_1350,al_c,q_85,enc_avif,quality_auto/32989d_c3e7bce3044149d3abc7d4564c11239b~mv2.jpg" alt="Travis Smith Productions camera operator" />
+          </div>
+          <div class="mini-card">
+            <h3>High-End Polish.<br>Raw Local Energy.</h3>
+            <p>Polished web series content combined with fast-paced social clips built for modern attention spans.</p>
+          </div>
+          <div class="play-ring" aria-label="Play"></div>
         </div>
       </div>
     </section>
 
-    <section id="lanes">
+    <div class="ticker">
+      <div class="ticker-track">
+        <span>Eat NWA • Music NWA • Explore NWA • Build NWA • Stay NWA • YouTube • Reels • TikToks • Events • Sponsors •</span>
+        <span>Eat NWA • Music NWA • Explore NWA • Build NWA • Stay NWA • YouTube • Reels • TikToks • Events • Sponsors •</span>
+      </div>
+    </div>
+
+    <section id="vision">
       <div class="container">
         <div class="section-head reveal">
-          <div class="eyebrow">Five Content Lanes</div>
-          <h2>Five dedicated lanes capture the complete cultural ecosystem.</h2>
-          <p>Each lane gives the network a clear content category, a repeatable production format, and a focused sponsor opportunity.</p>
+          <div>
+            <div class="eyebrow">The Mission</div>
+            <h2>Reintroducing NWA to both locals and newcomers.</h2>
+          </div>
+          <p>TSPNWA exists to showcase the absolute best restaurants, music, business and entrepreneurs, hotels, and things to do in the area. The vision is a regional content ecosystem that helps people discover what makes Northwest Arkansas worth experiencing.</p>
         </div>
 
-        <div class="lanes reveal delay-1">
-          <article class="lane"><div class="lane-icon">🍽️</div><h3>Eat NWA</h3><p class="label">Focus:</p><p>Top restaurants, hidden gems, chef interviews, food trends.</p><p class="label">Hero Format:</p><p>Weekly deep-dive episodes.</p><p class="label">Daily Output:</p><p>Quick food shorts.</p></article>
-          <article class="lane"><div class="lane-icon">🎸</div><h3>Music NWA</h3><p class="label">Focus:</p><p>Live performances, artist spotlights, venue tours, festivals.</p><p class="label">Hero Format:</p><p>Concert series.</p><p class="label">Daily Output:</p><p>Quick music clips.</p></article>
-          <article class="lane"><div class="lane-icon">🧭</div><h3>Explore NWA</h3><p class="label">Focus:</p><p>Things to do, hidden spots, outdoors, family activities.</p><p class="label">Hero Format:</p><p>Travel-style episodes.</p><p class="label">Daily Output:</p><p>Quick local tips and weekend guides.</p></article>
-          <article class="lane"><div class="lane-icon">🚀</div><h3>Build NWA</h3><p class="label">Focus:</p><p>Business spotlights, entrepreneur interviews, startup stories.</p><p class="label">Hero Format:</p><p>Profile series.</p><p class="label">Daily Output:</p><p>Motivational shorts.</p></article>
-          <article class="lane"><div class="lane-icon">🏨</div><h3>Stay NWA</h3><p class="label">Focus:</p><p>Hotel reviews, unique stays, luxury spots, practical lodging.</p><p class="label">Hero Format:</p><p>Hotel tours.</p><p class="label">Daily Output:</p><p>Travel hacks.</p></article>
+        <div class="story-grid">
+          <article class="story-card reveal"><span>Target 01</span><h3>Surprising Locals</h3><p>Give longtime locals fresh reasons to rediscover their own backyard through stories, places, and people they may have missed.</p></article>
+          <article class="story-card reveal delay-1"><span>Target 02</span><h3>Exciting Newcomers</h3><p>Create a high-quality, useful guide for new residents and visitors who want to understand the region quickly.</p></article>
+          <article class="story-card reveal delay-2"><span>The Bigger Play</span><h3>A Living Tour Guide</h3><p>Build a content engine that becomes the cultural utility hub for a rapidly growing region.</p></article>
         </div>
       </div>
     </section>
 
-    <section class="dark">
+    <section class="light" id="lanes">
       <div class="container">
         <div class="section-head reveal">
-          <div class="eyebrow">Production DNA</div>
-          <h2>High-end polish. Raw authenticity. Fast social energy.</h2>
-          <p>The production DNA balances polished web series energy with fast-paced, on-the-ground social content.</p>
+          <div>
+            <div class="eyebrow">Five Dedicated Lanes</div>
+            <h2>The complete cultural ecosystem.</h2>
+          </div>
+          <p>Each lane gives the network a focused audience, repeatable hero format, daily output, and a clear sponsorship path.</p>
+        </div>
+
+        <div class="lane-grid reveal delay-1">
+          <article class="lane" style="--bg:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80')"><div class="lane-content"><h3>Eat NWA</h3><b>Weekly Deep-Dive Episodes</b><p>Top restaurants, hidden gems, chef interviews, and food trends with quick food shorts as daily output.</p></div></article>
+          <article class="lane" style="--bg:url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=80')"><div class="lane-content"><h3>Music NWA</h3><b>Concert Series</b><p>Live performances, artist spotlights, venue tours, festivals, and quick music clips.</p></div></article>
+          <article class="lane" style="--bg:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80')"><div class="lane-content"><h3>Explore NWA</h3><b>Travel-Style Episodes</b><p>Things to do, hidden spots, outdoors, family activities, quick local tips, and weekend guides.</p></div></article>
+          <article class="lane" style="--bg:url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80')"><div class="lane-content"><h3>Build NWA</h3><b>Profile Series</b><p>Business spotlights, entrepreneur interviews, startup stories, and motivational shorts.</p></div></article>
+          <article class="lane" style="--bg:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80')"><div class="lane-content"><h3>Stay NWA</h3><b>Hotel Tours</b><p>Hotel reviews, unique stays, luxury spots, practical lodging, and travel hacks.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="production" id="production">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="eyebrow">Production DNA</div>
+            <h2>Built like a media company. Felt like the street.</h2>
+          </div>
+          <p>The deck calls for high-end polish with raw authenticity: cinematic, locally shot content paired with quick clips that keep audiences engaged.</p>
         </div>
         <div class="flow reveal delay-1">
-          <article class="flow-card"><span>01</span><h3>High-Energy</h3><p>Fast-paced editing designed to capture and hold modern attention spans.</p></article>
-          <article class="flow-card"><span>02</span><h3>Authentic</h3><p>Real conversations and raw moments that keep longtime locals surprised.</p></article>
-          <article class="flow-card"><span>03</span><h3>Locally Shot</h3><p>Polished, on-the-ground cinematography that excites newcomers about the region.</p></article>
-          <article class="flow-card"><span>04</span><h3>Ecosystem Feed</h3><p>Each lane produces its own series while feeding the larger TSPNWA ecosystem.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section id="funnel">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="eyebrow">Content Funnel</div>
-          <h2>One shoot becomes weeks of visibility.</h2>
-          <p>A single full episode becomes a long-tail content engine across YouTube, social media, collaborative posts, behind-the-scenes footage, and the web/app hub.</p>
-        </div>
-        <div class="funnel reveal delay-1">
-          <div class="funnel-main">The Engine: 1 Full Video Episode</div>
-          <div class="funnel-branches"><div class="branch">YouTube Collaborator Uploading</div><div class="branch">Social Media Reels & Content</div></div>
-          <div class="outputs"><div class="output">Long-Form</div><div class="output">Behind The Scenes</div><div class="output">Short-Form Collaborative Post</div><div class="output">BTS Footage</div></div>
+          <article class="flow-card"><span>01</span><h3>High Energy</h3><p>Fast-paced editing designed to capture and hold modern attention spans.</p></article>
+          <article class="flow-card"><span>02</span><h3>Authentic</h3><p>Real conversations and raw moments that keep the region feeling human.</p></article>
+          <article class="flow-card"><span>03</span><h3>Locally Shot</h3><p>On-the-ground cinematography that excites newcomers about the region.</p></article>
+          <article class="flow-card"><span>04</span><h3>Ecosystem Feed</h3><p>Each lane produces its own series while feeding the larger network.</p></article>
         </div>
       </div>
     </section>
 
     <section>
-      <div class="container split">
-        <div class="feature-photo reveal"><img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1100&q=80" alt="Hospitality and business gathering" /></div>
-        <div class="reveal delay-1">
-          <div class="section-head">
-            <div class="eyebrow">Host Partnership Model</div>
-            <h2>Hosts are not just talent. They are partners.</h2>
-            <p>The deck positions hosts as financial partners with a stake in the sponsorship revenue generated by their specific lane.</p>
+      <div class="container funnel-wrap">
+        <div class="reveal">
+          <div class="eyebrow">Content Funnel</div>
+          <h2>One shoot. Weeks of visibility.</h2>
+          <p class="lead">A single full episode becomes long-form YouTube content, social media reels, collaborative posts, and behind-the-scenes assets that keep the story moving after the shoot ends.</p>
+        </div>
+        <div class="funnel-visual reveal delay-1">
+          <div class="episode">1 Full Video Episode</div>
+          <div class="branches"><div class="branch">YouTube Collaborator Uploading</div><div class="branch">Social Media Reels & Content</div></div>
+          <div class="outputs"><div class="output">Long-Form</div><div class="output">BTS Footage</div><div class="output">Short-Form Collab Post</div><div class="output">Behind The Scenes</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="partner">
+      <div class="container">
+        <div class="partner-box reveal">
+          <div class="eyebrow">Host Partnerships</div>
+          <h2>Hosts become financial partners.</h2>
+          <p>The model positions hosts as more than talent. Each dedicated lane can generate its own sponsorship revenue, giving hosts a reason to create value for sponsors and grow the larger TSPNWA ecosystem.</p>
+          <div class="percent">Sample Host Deal: A percentage of all sponsorship revenue generated by their specific lane.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="light" id="distribution">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="eyebrow">Distribution Ecosystem</div>
+            <h2>Audiences wherever they live.</h2>
           </div>
-          <div class="panel"><h3>Direct Revenue Sharing</h3><p>Each lane can create its own sponsor relationships, giving hosts a reason to drive real value for sponsors while growing the larger network.</p><br><p><strong>Sample Host Deal:</strong> A percentage of all sponsorship revenue generated by their specific lane.</p></div>
+          <p>The distribution model is built in rings: YouTube anchors the full episodes, social media creates the daily pulse, and the website/app becomes the searchable utility hub.</p>
+        </div>
+        <div class="distribution-grid reveal delay-1">
+          <article class="dist-card"><h3>Ring 1:<br>YouTube</h3><p>The anchor for full web series episodes and cross-promotion between each lane.</p></article>
+          <article class="dist-card"><h3>Ring 2:<br>Social</h3><p>Daily short-form clips, Reels, TikToks, and Stories across Instagram, TikTok, Facebook, and X.</p></article>
+          <article class="dist-card"><h3>Ring 3:<br>Web + App</h3><p>Searchable directories, event calendars, maps, booking links, user-submitted gems, and push notifications.</p></article>
         </div>
       </div>
     </section>
 
-    <section id="distribution">
+    <section>
       <div class="container">
         <div class="section-head reveal">
-          <div class="eyebrow">Distribution Ecosystem</div>
-          <h2>Reaching audiences wherever they live.</h2>
-          <p>The network is designed as a multi-ring ecosystem, with YouTube anchoring the full series, social platforms creating daily pulse, and a website/app serving as the utility hub.</p>
-        </div>
-        <div class="rings reveal delay-1">
-          <article class="ring"><h3>Ring 1: YouTube</h3><p>The anchor for full web series episodes and cross-promotion between each lane.</p></article>
-          <article class="ring"><h3>Ring 2: Social Media</h3><p>Daily short-form clips, Reels, TikToks, and Stories across Instagram, TikTok, Facebook, and X.</p></article>
-          <article class="ring"><h3>Ring 3: Website & App</h3><p>Searchable directories, event calendars, maps, booking links, user-submitted gems, and push notifications.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="dark">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="eyebrow">Collaborative Flywheel</div>
-          <h2>Digital discovery turns into real-world economic growth.</h2>
-          <p>High-end local content creates amplification. Amplification drives traffic to the hub. The hub drives discovery, foot traffic, and economic value for NWA businesses.</p>
+          <div>
+            <div class="eyebrow">Collaborative Flywheel</div>
+            <h2>Digital discovery becomes real-world growth.</h2>
+          </div>
+          <p>TSP creates high-end local content. Guests and locations amplify it. Social traffic moves to the hub. The hub drives maps, calendars, booking links, foot traffic, and economic value for NWA businesses.</p>
         </div>
         <div class="flow reveal delay-1">
-          <article class="flow-card"><span>Node 1</span><h3>Creation</h3><p>TSP shoots high-end, locally polished hero content.</p></article>
-          <article class="flow-card"><span>Node 2</span><h3>Amplification</h3><p>Guests, locations, and TSP use short-form content to co-post and collaborate.</p></article>
-          <article class="flow-card"><span>Node 3</span><h3>Utility</h3><p>Social traffic flows to the app/web hub for maps, calendars, and booking links.</p></article>
-          <article class="flow-card"><span>Node 4</span><h3>Impact</h3><p>Digital discovery turns into foot traffic and economic growth for NWA businesses.</p></article>
+          <article class="flow-card"><span>Node 1</span><h3>Creation</h3><p>High-end, locally polished hero content.</p></article>
+          <article class="flow-card"><span>Node 2</span><h3>Amplification</h3><p>Guests, locations, and TSP co-post and collaborate.</p></article>
+          <article class="flow-card"><span>Node 3</span><h3>Utility</h3><p>Traffic flows into the app/web hub for useful action.</p></article>
+          <article class="flow-card"><span>Node 4</span><h3>Impact</h3><p>Discovery becomes foot traffic and local growth.</p></article>
         </div>
       </div>
     </section>
@@ -472,13 +584,17 @@
       <div class="container reveal">
         <h2>Step into the studio and join the network.</h2>
         <p>Seeking local business partners, potential lane hosts, and corporate sponsors ready to own the narrative of a rapidly expanding region.</p>
-        <a href="mailto:hello@tspnwa.com" class="btn primary">Start the Conversation</a>
+        <a class="btn primary" href="mailto:Travis@TravisSmithProductions.com">Start The Conversation</a>
       </div>
     </section>
+  </main>
 
-    <footer>
-      <div class="footer-inner"><span>TSPNWA Network</span><span>The Northwest Arkansas Cultural Guide</span><span>Produced by Travis Smith Productions</span></div>
-    </footer>
-  </div>
+  <footer>
+    <div class="footer-inner">
+      <span>TSPNWA Network</span>
+      <span>The Northwest Arkansas Cultural Guide</span>
+      <span>Produced by Travis Smith Productions</span>
+    </div>
+  </footer>
 </body>
 </html>
