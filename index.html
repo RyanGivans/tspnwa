@@ -11,6 +11,7 @@
       --black: #050505;
       --black-2: #0b0b0b;
       --charcoal: #151515;
+      --cream: #f2eadf;
       --white: #ffffff;
       --muted: rgba(255,255,255,.72);
       --muted-2: rgba(255,255,255,.52);
@@ -64,6 +65,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 22px;
     }
 
     .brand {
@@ -74,6 +76,7 @@
       font-weight: 900;
       letter-spacing: .16em;
       font-size: .78rem;
+      white-space: nowrap;
     }
 
     .logo {
@@ -87,22 +90,24 @@
       box-shadow: 0 0 35px rgba(240,90,36,.38);
       font-size: .76rem;
       letter-spacing: .05em;
+      flex: 0 0 auto;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 34px;
+      gap: 26px;
       text-transform: uppercase;
       font-weight: 900;
-      letter-spacing: .18em;
-      font-size: .72rem;
+      letter-spacing: .16em;
+      font-size: .69rem;
       color: rgba(255,255,255,.78);
     }
 
     .nav-links a {
       position: relative;
       padding: 9px 0;
+      white-space: nowrap;
     }
 
     .nav-links a::after {
@@ -125,6 +130,15 @@
     }
 
     .nav-cta::after { display: none; }
+
+    .mobile-note {
+      display: none;
+      color: var(--orange-soft);
+      font-size: .72rem;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
 
     .hero {
       min-height: calc(100vh - 78px);
@@ -180,6 +194,7 @@
       height: 2px;
       background: var(--orange);
       box-shadow: 0 0 20px rgba(240,90,36,.7);
+      flex: 0 0 auto;
     }
 
     h1, h2, h3 {
@@ -192,12 +207,12 @@
       font-size: clamp(4.4rem, 8.2vw, 10.7rem);
       line-height: .9;
       letter-spacing: .085em;
-      max-width: 880px;
+      max-width: 920px;
       text-shadow: 0 18px 60px rgba(0,0,0,.65);
     }
 
     .lead {
-      max-width: 690px;
+      max-width: 720px;
       margin-top: 24px;
       color: rgba(255,255,255,.82);
       font-size: clamp(1.02rem, 1.4vw, 1.28rem);
@@ -229,14 +244,14 @@
 
     .btn:hover { transform: translateY(-4px); }
     .btn-primary { background: var(--orange); border-color: var(--orange); box-shadow: 0 0 38px rgba(240,90,36,.26); }
-    .btn-secondary { background: transparent; border: none; color: rgba(255,255,255,.86); }
+    .btn-secondary { background: transparent; border: none; color: rgba(255,255,255,.86); padding-left: 0; }
     .arrow { color: var(--orange-soft); font-size: 1.25rem; }
 
     .hero-callout {
       align-self: end;
       justify-self: end;
-      width: min(330px, 100%);
-      min-height: 150px;
+      width: min(350px, 100%);
+      min-height: 170px;
       border: 1px solid rgba(255,255,255,.75);
       position: relative;
       display: grid;
@@ -350,6 +365,54 @@
       line-height: 1.5;
     }
 
+    .network-strip {
+      padding: 42px 0;
+      background: rgba(255,255,255,.035);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .network-links {
+      width: min(var(--max), calc(100% - 48px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .network-link {
+      min-height: 120px;
+      display: grid;
+      align-content: end;
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(0deg, rgba(0,0,0,.84), rgba(0,0,0,.28)), var(--bg) center/cover;
+      transition: transform .25s ease, border-color .25s ease;
+    }
+
+    .network-link:hover {
+      transform: translateY(-6px);
+      border-color: rgba(240,90,36,.8);
+    }
+
+    .network-link span {
+      color: var(--orange-soft);
+      text-transform: uppercase;
+      font-size: .66rem;
+      letter-spacing: .16em;
+      font-weight: 900;
+    }
+
+    .network-link strong {
+      margin-top: 4px;
+      display: block;
+      font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+      font-size: 1.7rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
     .lanes {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -357,13 +420,14 @@
     }
 
     .lane-card {
-      min-height: 435px;
+      min-height: 455px;
       position: relative;
       overflow: hidden;
       border: 1px solid rgba(255,255,255,.14);
       background: #111;
       isolation: isolate;
       transition: transform .3s ease, border-color .3s ease;
+      display: block;
     }
 
     .lane-card:hover {
@@ -433,6 +497,16 @@
       font-size: .96rem;
     }
 
+    .enter-lane {
+      display: inline-flex;
+      margin-top: 18px;
+      color: #fff;
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-weight: 900;
+    }
+
     .text-image {
       display: grid;
       grid-template-columns: .92fr 1.08fr;
@@ -483,14 +557,14 @@
       font-size: .74rem;
     }
 
-    .grid-4 {
+    .audience-grid, .grid-4 {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 16px;
       margin-top: 44px;
     }
 
-    .process-card {
+    .process-card, .audience-card {
       background: rgba(255,255,255,.055);
       border: 1px solid rgba(255,255,255,.13);
       padding: 26px;
@@ -498,12 +572,12 @@
       transition: transform .3s ease, background .3s ease;
     }
 
-    .process-card:hover {
+    .process-card:hover, .audience-card:hover {
       transform: translateY(-8px);
       background: rgba(240,90,36,.13);
     }
 
-    .process-card span {
+    .process-card span, .audience-card span {
       color: var(--orange-soft);
       text-transform: uppercase;
       letter-spacing: .16em;
@@ -511,27 +585,36 @@
       font-weight: 900;
     }
 
-    .process-card h3 {
+    .process-card h3, .audience-card h3 {
       margin-top: 38px;
       font-size: 2rem;
       line-height: 1;
       letter-spacing: .06em;
     }
 
-    .process-card p {
+    .process-card p, .audience-card p {
       margin-top: 12px;
       color: var(--muted);
       line-height: 1.48;
     }
 
     .light-section {
-      background: #f2eadf;
+      background: var(--cream);
       color: #111;
     }
 
     .light-section .section-title p,
-    .light-section .big-copy p {
+    .light-section .big-copy p,
+    .light-section .audience-card p,
+    .light-section .process-card p {
       color: rgba(0,0,0,.64);
+    }
+
+    .light-section .audience-card,
+    .light-section .process-card {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.12);
+      box-shadow: 0 24px 70px rgba(0,0,0,.10);
     }
 
     .funnel {
@@ -590,7 +673,7 @@
     }
 
     .partner-box {
-      max-width: 700px;
+      max-width: 760px;
       background: rgba(0,0,0,.72);
       border: 1px solid rgba(255,255,255,.18);
       padding: 42px;
@@ -652,6 +735,42 @@
       line-height: 1.55;
     }
 
+    .pilot-section {
+      background:
+        linear-gradient(0deg, rgba(0,0,0,.90), rgba(0,0,0,.62)),
+        url("https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1800&q=90") center/cover;
+      border-top: 1px solid rgba(255,255,255,.1);
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    .pilot-grid {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 46px;
+      align-items: center;
+    }
+
+    .pilot-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .pilot-item {
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      text-transform: uppercase;
+      font-size: .76rem;
+      letter-spacing: .12em;
+      font-weight: 900;
+    }
+
+    .pilot-item span { color: var(--orange-soft); }
+
     .cta {
       min-height: 78vh;
       display: grid;
@@ -692,17 +811,30 @@
       font-size: 1.08rem;
     }
 
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
     footer {
       background: #050505;
       border-top: 1px solid var(--line);
-      padding: 28px 0;
+      padding: 32px 0;
+    }
+
+    .footer-grid {
+      width: min(var(--max), calc(100% - 48px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 26px;
+      align-items: center;
     }
 
     .footer-inner {
-      width: min(var(--max), calc(100% - 48px));
-      margin: 0 auto;
       display: flex;
-      justify-content: space-between;
       gap: 18px;
       flex-wrap: wrap;
       color: rgba(255,255,255,.56);
@@ -711,6 +843,20 @@
       font-size: .72rem;
       font-weight: 900;
     }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: flex-end;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: .7rem;
+      font-weight: 900;
+      color: rgba(255,255,255,.72);
+    }
+
+    .footer-links a:hover { color: var(--orange-soft); }
 
     .reveal {
       opacity: 0;
@@ -722,25 +868,34 @@
     .delay-3 { animation-delay: .36s; }
     @keyframes reveal { to { opacity: 1; transform: translateY(0); } }
 
+    @media (max-width: 1180px) {
+      .nav-links { gap: 16px; font-size: .64rem; }
+    }
+
     @media (max-width: 1100px) {
-      .hero-grid, .text-image, .funnel { grid-template-columns: 1fr; }
+      .hero-grid, .text-image, .funnel, .pilot-grid { grid-template-columns: 1fr; }
       .hero-callout { justify-self: start; margin-top: 80px; }
-      .lanes { grid-template-columns: repeat(2, 1fr); }
-      .grid-4, .feature-inner { grid-template-columns: repeat(2, 1fr); }
+      .lanes, .network-links { grid-template-columns: repeat(2, 1fr); }
+      .grid-4, .feature-inner, .audience-grid { grid-template-columns: repeat(2, 1fr); }
       .slashes { display: none; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-links { justify-content: flex-start; }
     }
 
     @media (max-width: 780px) {
       .nav-links { display: none; }
+      .mobile-note { display: block; }
       .nav { width: calc(100% - 28px); }
-      .hero-grid, .container, .feature-inner, .footer-inner { width: calc(100% - 28px); }
+      .hero-grid, .container, .feature-inner, .footer-grid, .network-links { width: calc(100% - 28px); }
       h1 { font-size: clamp(3.25rem, 15vw, 5rem); letter-spacing: .04em; }
       .section-title h2, .big-copy h2, .cta h2 { letter-spacing: .04em; }
-      .lanes, .grid-4, .dist-grid, .branch-grid, .output-grid, .feature-inner { grid-template-columns: 1fr; }
+      .lanes, .network-links, .grid-4, .dist-grid, .branch-grid, .output-grid, .feature-inner, .audience-grid { grid-template-columns: 1fr; }
       .lane-card { min-height: 390px; }
       section { padding: 74px 0; }
       .media-frame { min-height: 360px; }
       .partner-box { padding: 28px; }
+      .cta-actions { align-items: stretch; flex-direction: column; }
+      .btn-secondary { padding-left: 24px; border: 1px solid rgba(255,255,255,.22); }
     }
   </style>
 </head>
@@ -757,10 +912,12 @@
           <a href="#vision">Vision</a>
           <a href="#lanes">Lanes</a>
           <a href="#production">Production</a>
+          <a href="#audience">Audience</a>
           <a href="#distribution">Distribution</a>
           <a href="#join">Join</a>
           <a class="nav-cta" href="#join">Partner With Us</a>
         </div>
+        <div class="mobile-note">Menu Below</div>
       </nav>
     </div>
 
@@ -768,11 +925,11 @@
       <div class="hero-bg"></div>
       <div class="hero-grid">
         <div class="reveal">
-          <div class="eyebrow">The Mission</div>
+          <div class="eyebrow">The Network Hub</div>
           <h1>Reintroducing NWA to both locals and newcomers.</h1>
           <p class="lead">TSPNWA exists to showcase the absolute best restaurants, music, business and entrepreneurs, hotels, and things to do in the area. The vision is a regional content ecosystem that helps people discover what makes Northwest Arkansas worth experiencing.</p>
           <div class="hero-actions">
-            <a href="#production" class="btn btn-primary"><span>▶</span> Watch The Concept</a>
+            <a href="#lanes" class="btn btn-primary"><span>▶</span> Explore The Network</a>
             <a href="#vision" class="btn btn-secondary">Learn Our Vision <span class="arrow">→</span></a>
           </div>
         </div>
@@ -794,6 +951,16 @@
         <div class="feature-item"><span class="feature-icon">ϟ</span><span>Daily<br>Content Engine</span></div>
         <div class="feature-item"><span class="feature-icon">↗</span><span>Built For<br>Growth</span></div>
         <div class="slashes"></div>
+      </div>
+    </div>
+
+    <div class="network-strip">
+      <div class="network-links">
+        <a class="network-link" href="./eatnwa/" style="--bg:url('https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=700&q=90');"><span>Enter Lane</span><strong>Eat NWA</strong></a>
+        <a class="network-link" href="./musicnwa/" style="--bg:url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=700&q=90');"><span>Enter Lane</span><strong>Music NWA</strong></a>
+        <a class="network-link" href="./explorenwa/" style="--bg:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=90');"><span>Enter Lane</span><strong>Explore NWA</strong></a>
+        <a class="network-link" href="./buildnwa/" style="--bg:url('https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=700&q=90');"><span>Enter Lane</span><strong>Build NWA</strong></a>
+        <a class="network-link" href="./staynwa/" style="--bg:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=700&q=90');"><span>Enter Lane</span><strong>Stay NWA</strong></a>
       </div>
     </div>
 
@@ -820,26 +987,43 @@
         </div>
 
         <div class="lanes reveal delay-1">
-          <article class="lane-card" style="--bg: url('https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=900&q=90');">
+          <a class="lane-card" href="./eatnwa/" style="--bg: url('https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=900&q=90');">
             <div class="lane-icon">🍴</div>
-            <div class="lane-content"><h3>Eat NWA</h3><b>Weekly Deep-Dive Episodes</b><p>Top restaurants, hidden gems, chef interviews, and food trends with quick food finds.</p></div>
-          </article>
-          <article class="lane-card" style="--bg: url('https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=900&q=90');">
+            <div class="lane-content"><h3>Eat NWA</h3><b>Weekly Deep-Dive Episodes</b><p>Top restaurants, hidden gems, chef interviews, and food trends with quick food finds.</p><span class="enter-lane">Enter Eat NWA →</span></div>
+          </a>
+          <a class="lane-card" href="./musicnwa/" style="--bg: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=900&q=90');">
             <div class="lane-icon">♪</div>
-            <div class="lane-content"><h3>Music NWA</h3><b>Concert Series</b><p>Live performances, artist spotlights, venue tours, festivals, and quick music recommendations.</p></div>
-          </article>
-          <article class="lane-card" style="--bg: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=90');">
+            <div class="lane-content"><h3>Music NWA</h3><b>Concert Series</b><p>Live performances, artist spotlights, venue tours, festivals, and quick music recommendations.</p><span class="enter-lane">Enter Music NWA →</span></div>
+          </a>
+          <a class="lane-card" href="./explorenwa/" style="--bg: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=90');">
             <div class="lane-icon">⌖</div>
-            <div class="lane-content"><h3>Explore NWA</h3><b>Travel-Style Episodes</b><p>Things to do, hidden spots, outdoors, family activities, quick local tips, and seasonal adventures.</p></div>
-          </article>
-          <article class="lane-card" style="--bg: url('https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=900&q=90');">
+            <div class="lane-content"><h3>Explore NWA</h3><b>Travel-Style Episodes</b><p>Things to do, hidden spots, outdoors, family activities, quick local tips, and seasonal adventures.</p><span class="enter-lane">Enter Explore NWA →</span></div>
+          </a>
+          <a class="lane-card" href="./buildnwa/" style="--bg: url('https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=900&q=90');">
             <div class="lane-icon">▣</div>
-            <div class="lane-content"><h3>Build NWA</h3><b>Profile Series</b><p>Business spotlights, entrepreneur interviews, startup stories, and the people building the future of NWA.</p></div>
-          </article>
-          <article class="lane-card" style="--bg: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=90');">
+            <div class="lane-content"><h3>Build NWA</h3><b>Profile Series</b><p>Business spotlights, entrepreneur interviews, startup stories, and the people building the future of NWA.</p><span class="enter-lane">Enter Build NWA →</span></div>
+          </a>
+          <a class="lane-card" href="./staynwa/" style="--bg: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=90');">
             <div class="lane-icon">▰</div>
-            <div class="lane-content"><h3>Stay NWA</h3><b>Hotel Tours</b><p>Hotel reviews, unique stays, luxury spots, practical lodging, and weekend getaway guides.</p></div>
-          </article>
+            <div class="lane-content"><h3>Stay NWA</h3><b>Hotel Tours</b><p>Hotel reviews, unique stays, luxury spots, practical lodging, and weekend getaway guides.</p><span class="enter-lane">Enter Stay NWA →</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="audience" class="light-section">
+      <div class="container">
+        <div class="section-title reveal">
+          <div class="eyebrow" style="justify-content:center;">Who This Is For</div>
+          <h2>A Network Built For Partners And Viewers</h2>
+          <p>The homepage should function as the hub for the full ecosystem: sponsors, hosts, local businesses, and audiences all need to understand where they fit.</p>
+        </div>
+
+        <div class="audience-grid reveal delay-1">
+          <article class="audience-card"><span>01</span><h3>Sponsors</h3><p>Brands can align with a lane, an audience, a category, or the full network through repeatable content and distribution.</p></article>
+          <article class="audience-card"><span>02</span><h3>Hosts</h3><p>Hosts can become category personalities with a direct stake in growing their lane and attracting sponsorship.</p></article>
+          <article class="audience-card"><span>03</span><h3>Businesses</h3><p>Restaurants, venues, hotels, founders, and local attractions can become stories instead of basic advertisements.</p></article>
+          <article class="audience-card"><span>04</span><h3>Viewers</h3><p>Locals and newcomers get a practical, entertaining guide to what to eat, hear, explore, build, and book next.</p></article>
         </div>
       </div>
     </section>
@@ -884,10 +1068,27 @@
     <section class="partner-section">
       <div class="container">
         <div class="partner-box reveal">
-          <div class="eyebrow">Host Partnerships</div>
-          <h2>Hosts become partners.</h2>
-          <p>The model positions hosts as more than talent. Hosts are financial partners with a stake in the sponsorship revenue generated by their specific lane.</p>
-          <div class="rev-share">Sample Host Deal: A percentage of all sponsorship revenue generated by their lane.</div>
+          <div class="eyebrow">Produced By Travis Smith Productions</div>
+          <h2>Founder-led production with a regional purpose.</h2>
+          <p>TSPNWA sits under the Travis Smith Productions creative umbrella: video, photo, social media, web presence, and event-driven marketing brought together into one Northwest Arkansas media network.</p>
+          <div class="rev-share">The vision: turn polished local content into awareness, foot traffic, partnerships, and long-term regional influence.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pilot-section">
+      <div class="container pilot-grid">
+        <div class="big-copy reveal">
+          <div class="eyebrow">Pilot Season</div>
+          <h2>Built to launch lane by lane.</h2>
+          <p>The first phase should prove the model with strong pilot episodes, host testing, sponsor conversations, and repeatable content workflows before expanding into the full app/web utility vision.</p>
+        </div>
+        <div class="pilot-list reveal delay-1">
+          <div class="pilot-item"><strong>Phase 01</strong><span>Recruit Hosts + Confirm Lanes</span></div>
+          <div class="pilot-item"><strong>Phase 02</strong><span>Film Pilot Episodes</span></div>
+          <div class="pilot-item"><strong>Phase 03</strong><span>Package Sponsor Offers</span></div>
+          <div class="pilot-item"><strong>Phase 04</strong><span>Launch Social Distribution</span></div>
+          <div class="pilot-item"><strong>Phase 05</strong><span>Build The Discovery Hub</span></div>
         </div>
       </div>
     </section>
@@ -927,15 +1128,28 @@
       <div class="container reveal">
         <h2>Step Into The Studio And Join The Network</h2>
         <p>Seeking local business partners, potential lane hosts, and corporate sponsors ready to own the narrative of a rapidly expanding region.</p>
-        <a href="mailto:Travis@TravisSmithProductions.com" class="btn btn-primary">Start The Conversation</a>
+        <div class="cta-actions">
+          <a href="mailto:Travis@TravisSmithProductions.com?subject=Partner%20With%20TSPNWA" class="btn btn-primary">Partner With Us</a>
+          <a href="mailto:Travis@TravisSmithProductions.com?subject=Become%20A%20TSPNWA%20Host" class="btn">Become A Host</a>
+          <a href="mailto:Travis@TravisSmithProductions.com?subject=Feature%20My%20Business%20On%20TSPNWA" class="btn">Feature My Business</a>
+        </div>
       </div>
     </section>
 
     <footer>
-      <div class="footer-inner">
-        <span>TSPNWA Network</span>
-        <span>The Northwest Arkansas Cultural Guide</span>
-        <span>Produced by Travis Smith Productions</span>
+      <div class="footer-grid">
+        <div class="footer-inner">
+          <span>TSPNWA Network</span>
+          <span>The Northwest Arkansas Cultural Guide</span>
+          <span>Produced by Travis Smith Productions</span>
+        </div>
+        <div class="footer-links">
+          <a href="./eatnwa/">Eat</a>
+          <a href="./musicnwa/">Music</a>
+          <a href="./explorenwa/">Explore</a>
+          <a href="./buildnwa/">Build</a>
+          <a href="./staynwa/">Stay</a>
+        </div>
       </div>
     </footer>
   </div>
