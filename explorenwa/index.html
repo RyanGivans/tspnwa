@@ -1,1 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explore NWA | TSPNWA Network</title>
+  <style>
+    :root {
+      --orange: #f05a24;
+      --orange-soft: #ff8b4a;
+      --green: #6bd66b;
+      --blue: #4fc3ff;
+      --black: #050505;
+      --cream: #f3eadc;
+      --white: #ffffff;
+      --muted: rgba(255,255,255,.74);
+      --line: rgba(255,255,255,.14);
+      --max: 1440px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: Arial, Helvetica, sans-serif; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .grain {
+      position: fixed; inset: 0; z-index: 999; pointer-events: none; opacity: .08;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .nav-wrap { position: sticky; top: 0; z-index: 50; background: rgba(0,0,0,.84); backdrop-filter: blur(18px); border-bottom: 1px solid var(--line); }
+    .nav { width: min(var(--max), calc(100% - 48px)); margin: 0 auto; height: 78px; display: flex; justify-content: space-between; align-items: center; }
+    .brand { display: flex; align-items: center; gap: 14px; text-transform: uppercase; font-weight: 900; letter-spacing: .16em; font-size: .78rem; }
+    .logo { width: 46px; height: 52px; border-radius: 12px; background: linear-gradient(145deg, var(--orange), #b73812); display: grid; place-items: center; border: 2px solid rgba(255,255,255,.85); box-shadow: 0 0 35px rgba(240,90,36,.38); font-size: .76rem; }
+    .nav-links { display: flex; align-items: center; gap: 30px; text-transform: uppercase; font-weight: 900; letter-spacing: .18em; font-size: .72rem; color: rgba(255,255,255,.78); }
+    .nav-links a { position: relative; padding: 9px 0; }
+    .nav-links a::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 2px; background: var(--orange); transition: width .25s ease; }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta { border: 1px solid var(--orange); color: var(--orange-soft); padding: 12px 18px !important; }
+    .nav-cta::after { display: none; }
+
+    h1, h2, h3 { font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif; text-transform: uppercase; font-weight: 900; }
+
+    .hero { min-height: calc(100vh - 78px); position: relative; display: grid; align-items: center; overflow: hidden; border-bottom: 1px solid rgba(240,90,36,.35); }
+    .hero-bg { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.96) 0%, rgba(0,0,0,.75) 36%, rgba(0,0,0,.22) 74%, rgba(0,0,0,.66) 100%), linear-gradient(0deg, rgba(0,0,0,.98), transparent 48%), url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2300&q=90") center/cover; transform: scale(1.06); animation: heroDrift 18s ease-in-out infinite alternate; }
+    .hero::after { content:""; position:absolute; inset:0; background: radial-gradient(circle at 75% 28%, rgba(107,214,107,.18), transparent 27%), radial-gradient(circle at 82% 72%, rgba(79,195,255,.13), transparent 24%), radial-gradient(circle at 48% 18%, rgba(240,90,36,.12), transparent 22%); pointer-events:none; }
+    @keyframes heroDrift { from { transform: scale(1.06) translateX(0); } to { transform: scale(1.14) translateX(-24px); } }
+    .hero-grid { width: min(var(--max), calc(100% - 48px)); margin: 0 auto; display: grid; grid-template-columns: 1fr .82fr; gap: 50px; position: relative; z-index: 2; padding: 76px 0 44px; }
+
+    .eyebrow { display: flex; align-items: center; gap: 14px; color: var(--orange-soft); text-transform: uppercase; letter-spacing: .22em; font-size: .72rem; font-weight: 900; margin-bottom: 26px; }
+    .eyebrow::before { content: ""; width: 44px; height: 2px; background: var(--orange); box-shadow: 0 0 20px rgba(240,90,36,.7); }
+    h1 { font-size: clamp(4.5rem, 10vw, 12.4rem); line-height: .84; letter-spacing: .075em; max-width: 1020px; text-shadow: 0 18px 60px rgba(0,0,0,.72); }
+    .hero h1 span { color: var(--orange-soft); }
+    .lead { max-width: 710px; margin-top: 24px; color: rgba(255,255,255,.84); font-size: clamp(1.03rem, 1.35vw, 1.26rem); line-height: 1.55; }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; margin-top: 34px; }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 54px; padding: 0 24px; text-transform: uppercase; letter-spacing: .1em; font-size: .78rem; font-weight: 900; border: 1px solid rgba(255,255,255,.24); transition: transform .25s ease, box-shadow .25s ease; }
+    .btn:hover { transform: translateY(-4px); }
+    .btn-primary { background: var(--orange); border-color: var(--orange); box-shadow: 0 0 38px rgba(240,90,36,.26); }
+    .btn-secondary { background: transparent; border: none; }
+    .arrow { color: var(--orange-soft); font-size: 1.25rem; }
+
+    .hero-card { align-self: end; justify-self: end; width: min(400px, 100%); background: rgba(0,0,0,.58); border: 1px solid rgba(255,255,255,.22); backdrop-filter: blur(14px); padding: 24px; margin-top: 250px; box-shadow: 0 0 60px rgba(107,214,107,.12); }
+    .hero-card img { height: 230px; width: 100%; object-fit: cover; border: 1px solid rgba(255,255,255,.18); }
+    .hero-card h3 { margin-top: 20px; font-size: 2.4rem; line-height: .95; letter-spacing: .06em; }
+    .hero-card p { margin-top: 12px; color: var(--muted); line-height: 1.48; }
+
+    .feature-bar { background: rgba(10,10,10,.95); border-top: 1px solid rgba(240,90,36,.28); border-bottom: 1px solid rgba(240,90,36,.28); }
+    .feature-inner { width: min(var(--max), calc(100% - 48px)); margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr) 180px; gap: 26px; align-items: center; min-height: 76px; }
+    .feature-item { display: flex; align-items: center; gap: 13px; text-transform: uppercase; letter-spacing: .14em; font-size: .77rem; font-weight: 900; color: rgba(255,255,255,.86); }
+    .feature-icon { color: var(--orange); font-size: 1.5rem; }
+    .slashes { height: 24px; background: repeating-linear-gradient(135deg, var(--orange) 0 12px, transparent 12px 26px); opacity: .75; }
+
+    section { padding: 100px 0; position: relative; }
+    .container { width: min(var(--max), calc(100% - 48px)); margin: 0 auto; }
+    .section-title { text-align: center; max-width: 1060px; margin: 0 auto 52px; }
+    .section-title h2 { font-size: clamp(2.9rem, 4.5vw, 6.2rem); line-height: 1; letter-spacing: .16em; }
+    .section-title p { margin-top: 12px; color: var(--muted); font-size: 1.08rem; line-height: 1.55; }
+
+    .text-image { display: grid; grid-template-columns: .92fr 1.08fr; gap: 54px; align-items: center; }
+    .big-copy h2 { font-size: clamp(3.2rem, 6vw, 8rem); line-height: .9; letter-spacing: .07em; }
+    .big-copy p { margin-top: 24px; color: var(--muted); font-size: 1.08rem; line-height: 1.65; max-width: 670px; }
+    .media-frame { min-height: 540px; border: 1px solid rgba(255,255,255,.16); background: linear-gradient(0deg, rgba(0,0,0,.75), rgba(0,0,0,.05)), url("https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1500&q=90") center/cover; position: relative; overflow: hidden; }
+    .media-frame::before { content: ""; position: absolute; inset: 24px; border: 1px solid rgba(255,255,255,.45); }
+    .media-label { position: absolute; right: 24px; bottom: 24px; background: var(--orange); padding: 16px 18px; text-transform: uppercase; font-weight: 900; letter-spacing: .12em; font-size: .74rem; }
+
+    .show-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .show-card { min-height: 450px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,.14); background: #111; isolation: isolate; transition: transform .3s ease, border-color .3s ease; }
+    .show-card:hover { transform: translateY(-10px); border-color: rgba(240,90,36,.8); }
+    .show-card::before { content: ""; position: absolute; inset: 0; background: var(--bg) center/cover; z-index: -2; transition: transform .7s ease; }
+    .show-card:hover::before { transform: scale(1.08); }
+    .show-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.94), rgba(0,0,0,.32)); z-index: -1; }
+    .show-content { position: absolute; inset: auto 26px 26px; }
+    .tag { color: var(--orange-soft); text-transform: uppercase; letter-spacing: .16em; font-size: .72rem; font-weight: 900; }
+    .show-content h3 { margin-top: 14px; font-size: 2.55rem; line-height: .98; letter-spacing: .06em; }
+    .show-content p { margin-top: 12px; color: rgba(255,255,255,.82); line-height: 1.48; }
+
+    .light { background: var(--cream); color: #111; }
+    .light .section-title p, .light .big-copy p { color: rgba(0,0,0,.65); }
+    .light .eyebrow { color: var(--orange); }
+
+    .episode-list { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .episode-card { display: grid; grid-template-columns: 180px 1fr; gap: 22px; background: #fff; border: 1px solid rgba(0,0,0,.12); box-shadow: 0 24px 70px rgba(0,0,0,.12); overflow: hidden; transition: transform .3s ease; }
+    .episode-card:hover { transform: translateY(-7px); }
+    .episode-card img { width: 100%; height: 100%; object-fit: cover; }
+    .episode-copy { padding: 24px 22px 24px 0; }
+    .episode-copy h3 { font-size: 2rem; line-height: 1; letter-spacing: .05em; }
+    .episode-copy p { margin-top: 10px; color: rgba(0,0,0,.68); line-height: 1.45; }
+
+    .partner-section { min-height: 610px; display: grid; align-items: center; background: linear-gradient(90deg, rgba(0,0,0,.94), rgba(0,0,0,.66), rgba(0,0,0,.28)), url("https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1800&q=90") center/cover fixed; }
+    .partner-box { max-width: 720px; background: rgba(0,0,0,.72); border: 1px solid rgba(255,255,255,.18); padding: 42px; backdrop-filter: blur(12px); }
+    .partner-box h2 { font-size: clamp(3rem, 6vw, 7rem); line-height: .9; letter-spacing: .07em; }
+    .partner-box p { margin-top: 22px; color: var(--muted); line-height: 1.65; font-size: 1.05rem; }
+    .partner-strip { margin-top: 26px; border-left: 5px solid var(--orange); background: rgba(255,255,255,.08); padding: 20px; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; font-size: .86rem; }
+
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 44px; }
+    .process-card { background: rgba(255,255,255,.055); border: 1px solid rgba(255,255,255,.13); padding: 26px; min-height: 230px; transition: transform .3s ease, background .3s ease; }
+    .process-card:hover { transform: translateY(-8px); background: rgba(240,90,36,.13); }
+    .process-card span { color: var(--orange-soft); text-transform: uppercase; letter-spacing: .16em; font-size: .72rem; font-weight: 900; }
+    .process-card h3 { margin-top: 38px; font-size: 2rem; line-height: 1; letter-spacing: .06em; }
+    .process-card p { margin-top: 12px; color: var(--muted); line-height: 1.48; }
+
+    .cta { min-height: 76vh; display: grid; place-items: center; text-align: center; background: linear-gradient(0deg, rgba(0,0,0,.92), rgba(0,0,0,.35)), url("https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1900&q=90") center/cover; overflow: hidden; }
+    .cta::before { content: "EXPLORE NWA"; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif; font-size: 13vw; letter-spacing: .05em; color: rgba(255,255,255,.045); pointer-events: none; }
+    .cta .container { position: relative; z-index: 2; }
+    .cta h2 { font-size: clamp(4rem, 8vw, 10rem); line-height: .9; letter-spacing: .07em; }
+    .cta p { max-width: 780px; margin: 28px auto 36px; color: var(--muted); line-height: 1.6; font-size: 1.08rem; }
+
+    footer { background: #050505; border-top: 1px solid var(--line); padding: 28px 0; }
+    .footer-inner { width: min(var(--max), calc(100% - 48px)); margin: 0 auto; display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; color: rgba(255,255,255,.56); text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; font-weight: 900; }
+
+    .reveal { opacity: 0; transform: translateY(24px); animation: reveal .75s ease forwards; }
+    .delay-1 { animation-delay: .12s; } .delay-2 { animation-delay: .24s; } .delay-3 { animation-delay: .36s; }
+    @keyframes reveal { to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 1100px) {
+      .hero-grid, .text-image { grid-template-columns: 1fr; }
+      .hero-card { justify-self: start; margin-top: 70px; }
+      .show-grid { grid-template-columns: 1fr 1fr; }
+      .grid-4, .feature-inner, .episode-list { grid-template-columns: repeat(2, 1fr); }
+      .slashes { display: none; }
+    }
+    @media (max-width: 780px) {
+      .nav-links { display: none; }
+      .nav, .hero-grid, .container, .feature-inner, .footer-inner { width: calc(100% - 28px); }
+      h1 { font-size: clamp(3.6rem, 18vw, 6.5rem); letter-spacing: .04em; }
+      .section-title h2, .big-copy h2, .cta h2 { letter-spacing: .04em; }
+      .show-grid, .grid-4, .episode-list, .feature-inner { grid-template-columns: 1fr; }
+      .episode-card { grid-template-columns: 1fr; }
+      .episode-card img { height: 220px; }
+      .episode-copy { padding: 24px; }
+      section { padding: 74px 0; }
+      .media-frame { min-height: 360px; }
+      .partner-box { padding: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain"></div>
+
+  <div class="nav-wrap">
+    <nav class="nav">
+      <a href="../index.html" class="brand"><span class="logo">TSP</span><span>TSPNWA Network</span></a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="#show">The Show</a>
+        <a href="#episodes">Guides</a>
+        <a href="#partners">Partners</a>
+        <a href="#join" class="nav-cta">Share A Spot</a>
+      </div>
+    </nav>
+  </div>
+
+  <header class="hero" id="top">
+    <div class="hero-bg"></div>
+    <div class="hero-grid">
+      <div class="reveal">
+        <div class="eyebrow">TSPNWA Presents</div>
+        <h1>Explore <span>NWA</span></h1>
+        <p class="lead">A travel-style discovery series built to showcase hidden spots, outdoor escapes, family activities, weekend guides, and the places that make Northwest Arkansas worth exploring.</p>
+        <div class="hero-actions">
+          <a href="#episodes" class="btn btn-primary"><span>▶</span> Explore The Guides</a>
+          <a href="#partners" class="btn btn-secondary">Partner With Explore NWA <span class="arrow">→</span></a>
+        </div>
+      </div>
+
+      <div class="hero-card reveal delay-1">
+        <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=90" alt="Scenic outdoor exploration" />
+        <h3>Travel-Style Episodes</h3>
+        <p>Hidden gems, outdoor experiences, family activities, local tips, and weekend guides built for saves and shares.</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="feature-bar">
+    <div class="feature-inner">
+      <div class="feature-item"><span class="feature-icon">⌖</span><span>Hidden<br>Spots</span></div>
+      <div class="feature-item"><span class="feature-icon">△</span><span>Outdoor<br>Escapes</span></div>
+      <div class="feature-item"><span class="feature-icon">◎</span><span>Family<br>Activities</span></div>
+      <div class="feature-item"><span class="feature-icon">ϟ</span><span>Weekend<br>Guides</span></div>
+      <div class="slashes"></div>
+    </div>
+  </div>
+
+  <main>
+    <section id="show">
+      <div class="container text-image">
+        <div class="big-copy reveal">
+          <div class="eyebrow">The Explore NWA Lane</div>
+          <h2>The regional guide for what to do next.</h2>
+          <p>Explore NWA is designed to showcase things to do, hidden spots, outdoor experiences, family activities, quick local tips, and weekend guides.</p>
+          <p>This lane should feel useful, cinematic, adventurous, and easy to share — helping locals and newcomers decide where to go, what to try, and what to see next.</p>
+        </div>
+        <div class="media-frame reveal delay-1">
+          <div class="media-label">Trails / Towns / Weekend Energy</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-title reveal">
+          <div class="eyebrow" style="justify-content:center;">Show Formats</div>
+          <h2>Built For Discovery And Weekend Plans</h2>
+          <p>Explore NWA works best as a cinematic local guide: part travel show, part hidden gem finder, and part practical weekend planner.</p>
+        </div>
+
+        <div class="show-grid reveal delay-1">
+          <article class="show-card" style="--bg:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=90');">
+            <div class="show-content"><span class="tag">Hero Format</span><h3>Travel-Style Episodes</h3><p>Polished episodes built around destinations, routes, activities, and the feel of discovering a place.</p></div>
+          </article>
+          <article class="show-card" style="--bg:url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=900&q=90');">
+            <div class="show-content"><span class="tag">Local Discovery</span><h3>Hidden Spot Finds</h3><p>Shareable features on tucked-away places, overlooks, trails, shops, and local favorites.</p></div>
+          </article>
+          <article class="show-card" style="--bg:url('https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=900&q=90');">
+            <div class="show-content"><span class="tag">Daily Output</span><h3>Quick Local Tips</h3><p>Short-form guides built for saves: where to park, when to go, what to bring, and what to do nearby.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="light" id="episodes">
+      <div class="container">
+        <div class="section-title reveal">
+          <div class="eyebrow" style="justify-content:center;">Guide Ideas</div>
+          <h2>Starter Content Slate</h2>
+          <p>Placeholder concepts to show how the Explore NWA lane could launch before real episodes are filmed.</p>
+        </div>
+
+        <div class="episode-list reveal delay-1">
+          <article class="episode-card"><img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=700&q=90" alt="Outdoor view" /><div class="episode-copy"><span class="tag">Weekend Guide</span><h3>48 Hours In Northwest Arkansas</h3><p>A polished travel-style itinerary designed for newcomers, visitors, and locals planning a full weekend.</p></div></article>
+          <article class="episode-card"><img src="https://images.unsplash.com/photo-1528543606781-2f6e6857f318?auto=format&fit=crop&w=700&q=90" alt="Trail path" /><div class="episode-copy"><span class="tag">Outdoor Guide</span><h3>The Trail You Should Try Next</h3><p>A quick, useful trail feature with visuals, difficulty, nearby stops, and best time to go.</p></div></article>
+          <article class="episode-card"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=700&q=90" alt="Water and nature" /><div class="episode-copy"><span class="tag">Hidden Spot</span><h3>The Place Locals Keep Recommending</h3><p>A discovery segment focused on atmosphere, access, tips, and why it is worth the trip.</p></div></article>
+          <article class="episode-card"><img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=700&q=90" alt="Family activity" /><div class="episode-copy"><span class="tag">Family Guide</span><h3>What To Do With The Family This Weekend</h3><p>A save-worthy roundup built around easy activities, family-friendly stops, and quick planning.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="partner-section" id="partners">
+      <div class="container">
+        <div class="partner-box reveal">
+          <div class="eyebrow">Tourism + Local Partner Opportunities</div>
+          <h2>Content that gets people moving.</h2>
+          <p>Explore NWA gives attractions, local businesses, tourism partners, outdoor brands, family destinations, and event organizers a cinematic platform for discovery.</p>
+          <div class="partner-strip">Built for saves, shares, weekend plans, map clicks, and real-world visits.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-title reveal">
+          <div class="eyebrow" style="justify-content:center;">The Content Engine</div>
+          <h2>One Adventure. Weeks Of Visibility.</h2>
+          <p>Every destination or activity feature should become multiple assets across the TSPNWA ecosystem.</p>
+        </div>
+
+        <div class="grid-4 reveal delay-1">
+          <article class="process-card"><span>01</span><h3>Full Guide</h3><p>A polished destination or activity feature hosted on the core network and YouTube.</p></article>
+          <article class="process-card"><span>02</span><h3>Short Tips</h3><p>Fast, useful clips for Reels, TikTok, and Shorts: where to go, what to do, and why it matters.</p></article>
+          <article class="process-card"><span>03</span><h3>Collab Posts</h3><p>Co-posted content with featured destinations, hosts, local businesses, and TSPNWA channels.</p></article>
+          <article class="process-card"><span>04</span><h3>Discovery Hub</h3><p>Future placement in maps, guides, directories, event calendars, and user-submitted gems.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="join">
+      <div class="container reveal">
+        <h2>Show NWA What To Explore Next</h2>
+        <p>For local attractions, outdoor destinations, event organizers, sponsors, and hosts ready to help tell the adventure story of Northwest Arkansas.</p>
+        <a href="mailto:Travis@TravisSmithProductions.com" class="btn btn-primary">Start The Conversation</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>Explore NWA</span>
+      <span>A TSPNWA Network Lane</span>
+      <span>Produced by Travis Smith Productions</span>
+    </div>
+  </footer>
+</body>
+</html>
 
